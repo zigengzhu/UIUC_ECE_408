@@ -4,6 +4,9 @@
 
 #define TILE_WIDTH 16
 
+//cudaStream_t stream1, stream2, stream3;
+float *host_xpin, *host_ypin, *host_kpin;
+
 __global__ void conv_forward_kernel(float *y, const float *x, const float *k, const int B, const int M, const int C, const int H, const int W, const int K)
 {
     /*
@@ -71,12 +74,24 @@ __host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, const f
 
     //float *host_out = (float *)malloc(M * W_out * H_out * sizeof(float));
 
+    //cudaStreamCreate(&stream1);
+    //cudaStreamCreate(&stream2);
+    //cudaStreamCreate(&stream3);
+
     cudaMalloc((void **) device_x_ptr, B * C * W * H * sizeof(float));
     cudaMalloc((void **) device_k_ptr, M * C * K * K * sizeof(float));
     cudaMalloc((void **) device_y_ptr, B * M * W_out * H_out * sizeof(float));
 
-    cudaMemcpy(*device_x_ptr, host_x, B * C * W * H * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy(*device_k_ptr, host_k, M * C * K * K * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMallocHost((void **) &host_xpin, B * C * W * H * sizeof(float));
+    cudaMallocHost((void **) &host_kpin, M * C * K * K * sizeof(float));
+    cudaMallocHost((void **) &host_ypin, B * M * W_out * H_out * sizeof(float));
+
+    memcpy(host_xpin, host_x, B * C * W * H * sizeof(float));
+    memcpy(host_kpin, host_k, M * C * K * K * sizeof(float));
+    memset(host_ypin, 0, B * M * W_out * H_out * sizeof(float));
+
+    cudaMemcpy(*device_x_ptr, host_xpin, B * C * W * H * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy(*device_k_ptr, host_kpin, M * C * K * K * sizeof(float), cudaMemcpyHostToDevice);
 
     // Useful snippet for error checking
     cudaError_t error = cudaGetLastError();
@@ -108,11 +123,15 @@ __host__ void GPUInterface::conv_forward_gpu_epilog(float *host_y, float *device
     const int H_out = H - K + 1;
     const int W_out = W - K + 1;
     // Copy the output back to host
-    cudaMemcpy(host_y, device_y, B * M * W_out * H_out * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(host_ypin, device_y, B * M * W_out * H_out * sizeof(float), cudaMemcpyDeviceToHost);
+    memcpy(host_y, host_ypin, B * M * W_out * H_out * sizeof(float));
     // Free device memory
     cudaFree(device_x);
     cudaFree(device_y);
     cudaFree(device_k);
+    cudaFreeHost(host_xpin);
+    cudaFreeHost(host_ypin);
+    cudaFreeHost(host_kpin);
 }
 
 
