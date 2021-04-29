@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g  -Wl,--enable-auto-import CMakeFiles/ece408_project.dir/custom/cpu-new-forward.cc.o CMakeFiles/ece408_project.dir/final.cc.o CMakeFiles/ece408_project.dir/m1.cc.o CMakeFiles/ece408_project.dir/m2.cc.o CMakeFiles/ece408_project.dir/m3.cc.o  -o ece408_project.exe -Wl,--out-implib,libece408_project.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

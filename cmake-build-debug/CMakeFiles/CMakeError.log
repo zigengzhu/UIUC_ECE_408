@@ -1,0 +1,340 @@
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_a6273/fast && /usr/bin/make  -f CMakeFiles/cmTC_a6273.dir/build.make CMakeFiles/cmTC_a6273.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_a6273.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_a6273.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_a6273.dir/build.make:86: CMakeFiles/cmTC_a6273.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_a6273/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_72646/fast && /usr/bin/make  -f CMakeFiles/cmTC_72646.dir/build.make CMakeFiles/cmTC_72646.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_72646.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_72646.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_72646.dir/build.make:86: CMakeFiles/cmTC_72646.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_72646/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_a9d7d/fast && /usr/bin/make  -f CMakeFiles/cmTC_a9d7d.dir/build.make CMakeFiles/cmTC_a9d7d.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_a9d7d.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_a9d7d.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_a9d7d.dir/build.make:86: CMakeFiles/cmTC_a9d7d.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_a9d7d/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_1e07f/fast && /usr/bin/make  -f CMakeFiles/cmTC_1e07f.dir/build.make CMakeFiles/cmTC_1e07f.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_1e07f.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_1e07f.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_1e07f.dir/build.make:86: CMakeFiles/cmTC_1e07f.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_1e07f/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_b630c/fast && /usr/bin/make  -f CMakeFiles/cmTC_b630c.dir/build.make CMakeFiles/cmTC_b630c.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_b630c.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_b630c.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_b630c.dir/build.make:86: CMakeFiles/cmTC_b630c.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_b630c/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_721a7/fast && /usr/bin/make  -f CMakeFiles/cmTC_721a7.dir/build.make CMakeFiles/cmTC_721a7.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_721a7.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_721a7.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_721a7.dir/build.make:86: CMakeFiles/cmTC_721a7.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_721a7/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_44b06/fast && /usr/bin/make  -f CMakeFiles/cmTC_44b06.dir/build.make CMakeFiles/cmTC_44b06.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_44b06.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_44b06.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_44b06.dir/build.make:86: CMakeFiles/cmTC_44b06.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_44b06/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_b59f7/fast && /usr/bin/make  -f CMakeFiles/cmTC_b59f7.dir/build.make CMakeFiles/cmTC_b59f7.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_b59f7.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_b59f7.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_b59f7.dir/build.make:86: CMakeFiles/cmTC_b59f7.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_b59f7/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_d5c87/fast && /usr/bin/make  -f CMakeFiles/cmTC_d5c87.dir/build.make CMakeFiles/cmTC_d5c87.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_d5c87.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_d5c87.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_d5c87.dir/build.make:86: CMakeFiles/cmTC_d5c87.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_d5c87/fast] Error 2
+
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Compiling the CUDA compiler identification source file "CMakeCUDACompilerId.cu" failed.
+Compiler: /cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe 
+Build flags: 
+Id flags:  -v;--keep;--keep-dir;tmp
+
+The output was:
+1
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+
+
+Determining if the CUDA compiler works failed with the following output:
+Change Dir: //wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make.exe cmTC_c1c61/fast && /usr/bin/make  -f CMakeFiles/cmTC_c1c61.dir/build.make CMakeFiles/cmTC_c1c61.dir/build
+make[1]: Entering directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building CUDA object CMakeFiles/cmTC_c1c61.dir/main.cu.o
+"/cygdrive/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.1/bin/nvcc.exe"     -x cu -c "//wsl\$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp/main.cu" -o CMakeFiles/cmTC_c1c61.dir/main.cu.o
+nvcc fatal   : Cannot find compiler 'cl.exe' in PATH
+make[1]: *** [CMakeFiles/cmTC_c1c61.dir/build.make:86: CMakeFiles/cmTC_c1c61.dir/main.cu.o] Error 1
+make[1]: Leaving directory '//wsl$/Ubuntu/home/syushikou97/ece408_project/cmake-build-debug/CMakeFiles/CMakeTmp'
+make: *** [Makefile:141: cmTC_c1c61/fast] Error 2
+
+
+
