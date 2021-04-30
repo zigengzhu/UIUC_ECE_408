@@ -22,8 +22,8 @@ commands:
       #- nsys profile --stats=true ./m2
       #- nv-nsight-cu-cli --section '.*' -o analysis_file ./m2
       #- /bin/bash -c "cuda-memcheck ./m3"
-      - /bin/bash -c "./m3"
-      #- nsys profile --stats=true ./m3
+      #- /bin/bash -c "./m3"
+      - nsys profile --stats=true ./m3
       #- nv-nsight-cu-cli --section '.*' -o analysis_file ./m3
       #- /bin/bash -c "./final"
 

@@ -1,0 +1,244 @@
+ECE 408 / CS 483 Project Milestone 3
+Author: Zigeng Zhu (zigeng2)
+
+Baseline
+
+Test batch size: 10000 Test Accuracy: 0.8714
+Conv-GPU== Layer Time: 656.48 ms      Op Time: 25.8594 ms
+Conv-GPU== Layer Time: 503.511 ms     Op Time: 60.3602 ms
+
+CUDA API Statistics (nanoseconds)
+
+Time(%)      Total Time       Calls         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   78.4      1071663236           8     133957904.5           18406       579835769  cudaMemcpy
+
+   13.9       189853452           8      23731681.5           76154       186399764  cudaMalloc
+
+    6.3        86187126           6      14364521.0            3024        60332340  cudaDeviceSynchronize
+
+    1.2        16726472           6       2787745.3           22050        16597030  cudaLaunchKernel
+
+    0.2         2874268           8        359283.5           66434          963205  cudaFree
+
+Generating CUDA Kernel Statistics...
+
+Generating CUDA Memory Operation Statistics...
+CUDA Kernel Statistics (nanoseconds)
+
+Time(%)      Total Time   Instances         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+  100.0        86162679           2      43081339.5        25832262        60330417  conv_forward_kernel
+
+    0.0            2847           2          1423.5            1375            1472  do_not_remove_this_kernel
+
+    0.0            2784           2          1392.0            1344            1440  prefn_marker_kernel
+
+
+
+CUDA Memory Operation Statistics (nanoseconds)
+
+Time(%)      Total Time  Operations         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   91.6       977231668           2     488615834.0       398237484       578994184  [CUDA memcpy DtoH]
+
+    8.4        89522148           6      14920358.0            1216        47987270  [CUDA memcpy HtoD]
+
+
+
+CUDA Memory Operation Statistics (KiB)
+
+            Total      Operations            Average            Minimum            Maximum  Name
+
+-----------------  --------------  -----------------  -----------------  -----------------  --------------------------------------------------------------------------------
+        1722500.0               2           861250.0         722500.000          1000000.0  [CUDA memcpy DtoH]
+
+         538919.0               6            89819.0              0.004           288906.0  [CUDA memcpy HtoD]
+
+Optimization 1 - Pinned Memory
+
+Test batch size: 10000 Test Accuracy: 0.8714
+Conv-GPU== Layer Time: 1400.98 ms  Op Time: 29.0197 ms
+Conv-GPU== Layer Time: 975.141 ms  Op Time: 65.3706 ms
+
+CUDA API Statistics (nanoseconds)
+
+Time(%)      Total Time       Calls         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   36.9       549797317           6      91632886.2          588772       239041849  cudaMallocHost
+
+   24.1       359181712           8      44897714.0           13761       155336023  cudaMemcpy
+
+   18.2       271576434           6      45262739.0          360563       136880768  cudaFreeHost
+
+   13.2       196037643           8      24504705.4           74989       192453173  cudaMalloc
+
+    6.3        94349988           6      15724998.0            2999        65342293  cudaDeviceSynchronize
+
+    1.1        16030845           6       2671807.5           24636        15876384  cudaLaunchKernel
+
+    0.2         2795868           8        349483.5           73027          834200  cudaFree
+
+
+Analysis:
+In the baseline method, it is evident that cudaMemcpy consumes the longest time. Therefore, it is reasonable to apply
+pinned memory optimization using cudaMallocHost that transfers pageable memory into pinned memory attaining the highest
+bandwidth between the host and the device.
+
+After applying the optimization, we can see that the total time of cudaMemcpy fell from 133957904.5 to 44897714.0, which
+has proven to be very effective. However, the cudaMallocHost and cudaFreeHost still took a great portion in the total
+time consumed, which almost cancels the time advantage. According to the documentation, "excessive use of pinned memory
+can reduce overall system performance because it is a scarce resource" and "the pinning of system memory is a heavyweight operation".
+Therefore, I believe that pinned memory is most useful when there are many cudaMemcpy calls, while the size of the pinned
+memory should not exceed the limit where it may result in slowing the system.
+
+Optimization 2 - Constant Memory
+
+Test batch size: 10000  Test Accuracy: 0.8714
+Conv-GPU==Layer Time: 621.516 ms Op Time: 24.7697 ms
+Conv-GPU==Layer Time: 489.952 ms Op Time: 48.8546 ms
+
+CUDA API Statistics (nanoseconds)
+
+Time(%)      Total Time       Calls         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   73.4      1030799961           6     171799993.5           12405       552965952  cudaMemcpy
+
+   14.5       203122210           6      33853701.7          299871       191321662  cudaMalloc
+
+    5.2        73605820           6      12267636.7            2807        48830031  cudaDeviceSynchronize
+
+    4.5        62823400           6      10470566.7           88390        60476906  cudaFree
+
+    2.4        33727176           6       5621196.0           18254        33611603  cudaLaunchKernel
+
+    0.0          170336           2         85168.0           82014           88322  cudaMemcpyToSymbol
+
+
+CUDA Kernel Statistics (nanoseconds)
+
+Time(%)      Total Time   Instances         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+  100.0        73574457           2      36787228.5        24746954        48827503  conv_forward_kernel
+
+    0.0            2816           2          1408.0            1344            1472  prefn_marker_kernel
+
+    0.0            2816           2          1408.0            1312            1504  do_not_remove_this_kernel
+
+
+Analysis:
+Since the weights in host_k is unchanged during the grid execution and were accessed in the same order, constant memory
+can be used to reduce the access time. Since the dimensions of each layer is known, I initialized 2 different constant
+memory spaces for each layer. Which layer to copy the weights from host depends on the input parameters M, C, and K.
+
+From the statistics, we can see that the total kernel execution time was reduced from 86162679 to 73574457. Further improvements
+were made as there are no need to cudaMemcpy and cudaMalloc k, and the cudaMemcpyToSymbol only took a fraction of that time.
+
+
+Optimization 3 - Shared Memory
+
+Test batch size: 10000 Test Accuracy: 0.8714
+Conv-GPU== Layer Time: 619.417 ms Op Time: 39.3594 ms
+Conv-GPU== Layer Time: 578.981 ms Op Time: 134.969 ms
+
+CUDA API Statistics (nanoseconds)
+
+Time(%)      Total Time       Calls         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   73.5      1021684992           8     127710624.0           17260       538388977  cudaMemcpy
+
+   12.6       175795169           8      21974396.1           74595       171025576  cudaMalloc
+
+   12.5       174301680           6      29050280.0            2845       134934716  cudaDeviceSynchronize
+
+    1.1        15688265           6       2614710.8           16970        15562424  cudaLaunchKernel
+
+    0.2         2939865           8        367483.1           61553          847690  cudaFree
+
+Generating CUDA Kernel Statistics...
+
+Generating CUDA Memory Operation Statistics...
+CUDA Kernel Statistics (nanoseconds)
+
+Time(%)      Total Time   Instances         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+  100.0       174259160           2      87129580.0        39337859       134921301  conv_forward_kernel
+
+    0.0            2720           2          1360.0            1344            1376  prefn_marker_kernel
+
+    0.0            2720           2          1360.0            1248            1472  do_not_remove_this_kernel
+
+Analysis:
+Since the kernel is accessing a portion of the memory for many times, it is reasonable to put that portion into
+a temporary shared memory to reduce global memory requests which may take more time.
+
+However, in our implementation, our kernel (174259160) actually took twice as long as that taken by the baseline kernel (86162679).
+We believe that this could be caused by the controlled divergence within the kernel. Later we also combined the current optimization
+with constant memory implementation as shown in 3.1, but the improvement was minimal.
+
+Optimization 3.1 Constant Memory + Shared Memory
+
+Test batch size: 10000  Test Accuracy: 0.8714
+Conv-GPU == Layer Time: 624.372 ms Op Time: 31.5418 ms
+Conv-GPU == Layer Time: 559.094 ms Op Time: 102.273 ms
+
+CUDA API Statistics (nanoseconds)
+
+Time(%)      Total Time       Calls         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   76.8      1054679519           6     175779919.8           17534       549602638  cudaMemcpy
+
+   12.2       167318684           6      27886447.3          319099       163043259  cudaMalloc
+
+    9.7       133782213           6      22297035.5            3381       102234923  cudaDeviceSynchronize
+
+    1.1        15078650           6       2513108.3           18116        14945086  cudaLaunchKernel
+
+    0.2         2963721           6        493953.5           84191          810361  cudaFree
+
+    0.0          161033           2         80516.5           75839           85194  cudaMemcpyToSymbol
+
+Generating CUDA Kernel Statistics...
+
+Generating CUDA Memory Operation Statistics...
+CUDA Kernel Statistics (nanoseconds)
+
+Time(%)      Total Time   Instances         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+  100.0       133748120           2      66874060.0        31519017       102229103  conv_forward_kernel
+
+    0.0            2944           2          1472.0            1376            1568  do_not_remove_this_kernel
+
+    0.0            2720           2          1360.0            1344            1376  prefn_marker_kernel
+
+
+
+CUDA Memory Operation Statistics (nanoseconds)
+
+Time(%)      Total Time  Operations         Average         Minimum         Maximum  Name
+
+-------  --------------  ----------  --------------  --------------  --------------  --------------------------------------------------------------------------------
+   92.1       958686181           2     479343090.5       409914932       548771249  [CUDA memcpy DtoH]
+
+    7.9        82362145           6      13727024.2            1472        41595278  [CUDA memcpy HtoD]
+
+
+
+CUDA Memory Operation Statistics (KiB)
+
+            Total      Operations            Average            Minimum            Maximum  Name
+
+-----------------  --------------  -----------------  -----------------  -----------------  --------------------------------------------------------------------------------
+        1722500.0               2           861250.0         722500.000          1000000.0  [CUDA memcpy DtoH]
+
+         538919.0               6            89819.0              0.004           288906.0  [CUDA memcpy HtoD]

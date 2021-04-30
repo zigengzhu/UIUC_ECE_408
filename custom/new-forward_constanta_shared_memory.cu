@@ -1,13 +1,12 @@
 #include <cmath>
 #include <iostream>
 #include "gpu-new-forward.h"
-
-#define TILE_WIDTH 32
+#define MIN( a, b ) ( (a < b) ? a : b )
+#define TILE_WIDTH 8
 
 __constant__ float deviceKernel1[4][1][7][7]; // 196 * sizeof(float)
 
 __constant__ float deviceKernel2[16][4][7][7]; // 3136 * sizeof(float)
-
 
 __global__ void conv_forward_kernel(float *y, const float *x, const float *k, const int B, const int M, const int C, const int H, const int W, const int K) {
     /*
@@ -21,7 +20,7 @@ __global__ void conv_forward_kernel(float *y, const float *x, const float *k, co
     k - kernel
     B - batch_size (number of images in x)
     M - number of output feature maps
-    C - number of input feature maps
+    C - number of input feature mapsA
     H - input height dimension
     W - input width dimension
     K - kernel height and width (K x K)
@@ -38,37 +37,77 @@ __global__ void conv_forward_kernel(float *y, const float *x, const float *k, co
 
 #define y4d(i3, i2, i1, i0) y[(i3) * (M * H_out * W_out) + (i2) * (H_out * W_out) + (i1) * (W_out) + i0]
 #define x4d(i3, i2, i1, i0) x[(i3) * (C * H * W) + (i2) * (H * W) + (i1) * (W) + i0]
-//#define k4d(i3, i2, i1, i0) k[(i3) * (C * K * K) + (i2) * (K * K) + (i1) * (K) + i0]
 
     // Insert your GPU convolution kernel code here
+
+    __shared__ float tile[TILE_WIDTH][TILE_WIDTH];
+
+    int tx = threadIdx.x;
+    int ty = threadIdx.y;
+
     int b = blockIdx.x;
     int m = blockIdx.y;
-    int h = blockIdx.z / W_grid * TILE_WIDTH + threadIdx.y;
-    int w = blockIdx.z % W_grid * TILE_WIDTH + threadIdx.x;
+    int z = blockIdx.z;
+
+    int h0 = z / W_grid * TILE_WIDTH;
+    int w0 = z % W_grid * TILE_WIDTH;
+
+    int h = h0 + ty;
+    int w = w0 + tx;
+
+    int w_lim = MIN(w0 + TILE_WIDTH, W_out);
+    int h_lim = MIN(h0 + TILE_WIDTH, H_out);
+
 
     if (M == 4 && C == 1 && K == 7) {
-        if (h < H_out && w < W_out) {
-            float acc = 0.;
+        if (w < W_out && h < H_out) {
+            float acc = 0.0f;
             for (int c = 0; c < C; c++) {
+                tile[ty][tx] = x4d(b, c, h+K/2, w+K/2);
+                __syncthreads();
                 for (int p = 0; p < K; p++) {
+                    int w_i = w + p;
+                    if (w_i >= W) { break; }
                     for (int q = 0; q < K; q++) {
-                        acc += x4d(b, c, h+p, w+q) * deviceKernel1[m][c][p][q];
+                        int h_i = h + q;
+                        if (h_i >= H) { break; }
+                        int tile_x = ty + q - K/2;
+                        int tile_y = tx + p - K/2;
+                        if (tile_y >= 0 && w_i - K/2 < w_lim && tile_x >= 0 && h_i - K/2 < h_lim) {
+                            acc += tile[tile_x][tile_y] * deviceKernel1[m][c][q][p];
+                        } else {
+                            acc += x4d(b, c, h_i, w_i) * deviceKernel1[m][c][q][p];
+                        }
                     }
                 }
+                __syncthreads();
             }
             y4d(b, m, h, w) = acc;
         }
     }
 
     if (M == 16 && C == 4 && K == 7) {
-        if (h < H_out && w < W_out) {
-            float acc = 0.;
+        if (w < W_out && h < H_out) {
+            float acc = 0.0f;
             for (int c = 0; c < C; c++) {
+                tile[ty][tx] = x4d(b, c, h+K/2, w+K/2);
+                __syncthreads();
                 for (int p = 0; p < K; p++) {
+                    int w_i = w + p;
+                    if (w_i >= W) { break; }
                     for (int q = 0; q < K; q++) {
-                        acc += x4d(b, c, h+p, w+q) * deviceKernel2[m][c][p][q];
+                        int h_i = h + q;
+                        if (h_i >= H) { break; }
+                        int tile_x = ty + q - K/2;
+                        int tile_y = tx + p - K/2;
+                        if (tile_y >= 0 && w_i - K/2 < w_lim && tile_x >= 0 && h_i - K/2 < h_lim) {
+                            acc += tile[tile_x][tile_y] * deviceKernel2[m][c][q][p];
+                        } else {
+                            acc += x4d(b, c, h_i, w_i) * deviceKernel2[m][c][q][p];
+                        }
                     }
                 }
+                __syncthreads();
             }
             y4d(b, m, h, w) = acc;
         }
@@ -76,7 +115,6 @@ __global__ void conv_forward_kernel(float *y, const float *x, const float *k, co
 
 #undef y4d
 #undef x4d
-#undef k4d
 }
 
 	
@@ -85,13 +123,11 @@ __host__ void GPUInterface::conv_forward_gpu_prolog(const float *host_y, const f
     // Allocate memory and copy over the relevant data structures to the GPU
     // We pass double pointers for you to initialize the relevant device pointers,
     // which are passed to the other two functions.
-
     const int H_out = H - K + 1;
     const int W_out = W - K + 1;
 
     cudaMalloc((void **) device_x_ptr, B * C * W * H * sizeof(float));
     cudaMalloc((void **) device_y_ptr, B * M * W_out * H_out * sizeof(float));
-
     cudaMemcpy(*device_x_ptr, host_x, B * C * W * H * sizeof(float), cudaMemcpyHostToDevice);
 
     if (M == 4 && C == 1 && K == 7) {
@@ -120,8 +156,6 @@ __host__ void GPUInterface::conv_forward_gpu(float *device_y, const float *devic
     const int W_grid = ceil(1.0 * W_out / TILE_WIDTH);
     const int H_grid = ceil(1.0 * H_out / TILE_WIDTH);
     const int Z = W_grid * H_grid;
-
-   // std::cout<<"B: " << B << " M: " << M << " C: " << C << " H: " << H << " W: "<< W << " K: " << K << std::endl;
 
     dim3 dimBlock(TILE_WIDTH, TILE_WIDTH, 1);
     dim3 dimGrid(B, M, Z);
